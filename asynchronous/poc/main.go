@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
+	"sync"
 )
 
 func main() {
@@ -15,10 +15,17 @@ func main() {
 		"https://wizzair.com/",
 		"https://www.swiss.com/",
 	}
-	for _, url := range urls {
-		go checkUrl(url)
+
+	var wg sync.WaitGroup
+
+	for _, u := range urls {
+		wg.Add(1)
+		go func(url string) {
+			defer wg.Done()
+			checkUrl(url)
+		}(u)
 	}
-	time.Sleep(5 * time.Second)
+	wg.Wait()
 }
 
 //checks and prints a message if a website is up or down
