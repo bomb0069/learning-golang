@@ -15,7 +15,7 @@ func main() {
 		"https://www.swiss.com/",
 	}
 	for _, url := range urls {
-		checkUrl(url)
+		go checkUrl(url)
 	}
 }
 
