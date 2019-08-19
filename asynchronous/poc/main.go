@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -17,6 +18,7 @@ func main() {
 	for _, url := range urls {
 		go checkUrl(url)
 	}
+	time.Sleep(5 * time.Second)
 }
 
 //checks and prints a message if a website is up or down
